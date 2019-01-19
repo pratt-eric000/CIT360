@@ -9,7 +9,8 @@
 	<ui:define name="title">Login</ui:define>
 
 	<ui:define name="content">
-		<h:form>
+		<h:form id="loginform">
+			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
 				<div class="card-body d-flex justify-content-center">
 					<div style="width: 300px;">
@@ -29,7 +30,7 @@
 								</p:password>
 							</div>
 							<div style="margin-top: 20px;">
-								<p:commandButton value="Submit" action="#{loginController.validate}" style="margin-right: 10px;" class="btn btn-dark"/>
+								<p:commandButton value="Submit" action="#{loginController.validate}" style="margin-right: 10px;" class="btn btn-dark" update="loginform"/>
 							</div>
 						</div>
 					</div>

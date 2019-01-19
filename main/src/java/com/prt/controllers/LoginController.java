@@ -5,10 +5,17 @@
  */
 package com.prt.controllers;
 
+import com.google.gson.Gson;
+import com.prt.models.User;
+import com.prt.utils.EncryptionHelper;
+import com.prt.utils.RestUtil;
 import java.io.Serializable;
+import java.util.Base64;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -44,8 +51,25 @@ public class LoginController implements Serializable {
 
 	public String validate() {
 		try {
-			System.out.println("Testing");
-			return "/user/home.xhtml?faces-redirect=true";
+			Gson gson = new Gson();
+			String[][] results = gson.fromJson(RestUtil.post("http://localhost:8080/db/webresources/repository/select/user", gson.toJson(username)), String[][].class);
+			if (results != null && results.length > 0) {
+				User user = new User();
+				for (String[] result : results) {
+					if (result[0].equalsIgnoreCase("USERNAME")) {
+						user.setUsername(result[1]);
+					} else if (result[0].equalsIgnoreCase("PASSWORD")) {
+						user.setPassword(result[1]);
+					} else if (result[0].equalsIgnoreCase("SALT")) {
+						user.setSalt(result[1]);
+					}
+				}
+				String compare = EncryptionHelper.encrypt(password, Base64.getDecoder().decode(user.getSalt()));
+				if (compare != null && compare.equals(user.getPassword())) {
+					return "/user/home.xhtml?faces-redirect=true";
+				}
+			}
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Authentication Error", "The username or password entered was incorrect. Please try again"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
