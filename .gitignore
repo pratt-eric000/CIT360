@@ -3,7 +3,6 @@
 /main/build/
 /db/nbproject/private/
 /db/build/
-/db/dist/
 /main/dist/
 /ugh/nbproject/private/
 /db2/nbproject/private/
@@ -15,4 +14,3 @@
 /user/build/
 /interface/nbproject/private/
 /interface/build/
-/interface/dist/
