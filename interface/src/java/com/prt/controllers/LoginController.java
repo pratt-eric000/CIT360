@@ -6,6 +6,7 @@
 package com.prt.controllers;
 
 import com.google.gson.Gson;
+import com.prt.models.Globals;
 import com.prt.models.User;
 import com.prt.utils.EncryptionHelper;
 import com.prt.utils.RestUtil;
@@ -14,6 +15,7 @@ import java.util.Base64;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -25,8 +27,19 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class LoginController implements Serializable {
 
+	@ManagedProperty("#{globals}")
+	private Globals globals;
+
 	private String username;
 	private String password;
+
+	public Globals getGlobals() {
+		return globals;
+	}
+
+	public void setGlobals(Globals globals) {
+		this.globals = globals;
+	}
 
 	public String getPassword() {
 		return password;
@@ -66,6 +79,8 @@ public class LoginController implements Serializable {
 				}
 				String compare = EncryptionHelper.encrypt(password, Base64.getDecoder().decode(user.getSalt()));
 				if (compare != null && compare.equals(user.getPassword())) {
+					globals.loggedin = true;
+//					PrimeFaces.current().ajax().update("");
 					return "/user/home.xhtml?faces-redirect=true";
 				}
 			}

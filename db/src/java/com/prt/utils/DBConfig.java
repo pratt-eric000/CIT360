@@ -34,7 +34,7 @@ public class DBConfig {
 
 	private Connection getNewConnection() throws Exception {
 		Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-		Connection c = DriverManager.getConnection("jdbc:derby:main;create=true;");
+		Connection c = DriverManager.getConnection("jdbc:derby:mainDB;create=true;user=app;password=derby");
 		//check basic tables to see that they exist
 		try {
 			String query = "SELECT * FROM USERS";
@@ -64,7 +64,7 @@ public class DBConfig {
 					id = set.getString("ID");
 				}
 				if (id != null) {
-					query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID) VALUES (?, ?, ?)";
+					query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID, ADMIN) VALUES (?, ?, ?, 0)";
 					insert = c.prepareStatement(query);
 					insert.setString(1, "admin");
 					insert.setString(2, "admin");
@@ -73,6 +73,9 @@ public class DBConfig {
 				}
 				insert.close();
 				stmt.close();
+			} else {
+				query = "UPDATE USERS SET ADMIN=1 WHERE FIRSTNAME='Admin'";
+				stmt.execute(query);
 			}
 			set.close();
 			stmt.close();
@@ -83,7 +86,8 @@ public class DBConfig {
 					+ "FIRSTNAME VARCHAR(1024) NOT NULL, "
 					+ "LASTNAME VARCHAR(1024), "
 					+ "USERNAME VARCHAR(1024) NOT NULL, "
-					+ "PASSID INTEGER NOT NULL) ";
+					+ "PASSID INTEGER NOT NULL, "
+					+ "ADMIN INTEGER DEFAULT 0) ";
 			Statement stmt = c.createStatement();
 			stmt.execute(query);
 			query = "CREATE TABLE PASSWORD("
@@ -110,7 +114,7 @@ public class DBConfig {
 				id = set.getString("ID");
 			}
 			if (id != null) {
-				query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID) VALUES (?, ?, ?)";
+				query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID, ADMIN) VALUES (?, ?, ?, 1)";
 				insert = c.prepareStatement(query);
 				insert.setString(1, "admin");
 				insert.setString(2, "admin");

@@ -7,7 +7,6 @@ package com.prt.controllers;
 
 import com.prt.models.Globals;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -16,9 +15,9 @@ import javax.faces.bean.ViewScoped;
  *
  * @author P-ratt
  */
-@ManagedBean(name = "homeController")
+@ManagedBean(name = "templateController")
 @ViewScoped
-public class HomeController implements Serializable {
+public class TemplateController implements Serializable {
 
 	@ManagedProperty("globals")
 	private Globals globals;
@@ -31,8 +30,8 @@ public class HomeController implements Serializable {
 		this.globals = globals;
 	}
 
-	@PostConstruct
-	void init() {
-
+	public String logout() {
+		globals.loggedin = false;
+		return "/login.xhtml?faces-redirect=true";
 	}
 }

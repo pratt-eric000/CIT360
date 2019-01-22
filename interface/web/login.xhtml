@@ -8,30 +8,48 @@
 
 	<ui:define name="title">Login</ui:define>
 
-	<ui:define name="content">
-		<h:form id="loginform">
+	<ui:define name="logincontent">
+		<h:form id="loginform" rendered="#{not globals.loggedin}">
 			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
 				<div class="card-body d-flex justify-content-center">
 					<div style="width: 300px;">
 						<div style="width: 80%; text-align: center;">
-							<div style="text-align: left;">
-								<p:outputLabel value="Username:" for="uname" escape="false"/>
-								<br/>
-								<p:inputText value="#{loginController.username}" id="uname">
-									<p:ajax/>
-								</p:inputText>
-							</div>
-							<div style="text-align: left;">
-								<p:outputLabel value="Password:" for="pword" escape="false"/>
-								<br/>
-								<p:password value="#{loginController.password}" id="pword">
-									<p:ajax/>
-								</p:password>
-							</div>
-							<div style="margin-top: 20px;">
-								<p:commandButton value="Submit" action="#{loginController.validate}" style="margin-right: 10px;" class="btn btn-dark" update="loginform"/>
-							</div>
+							<h:panelGroup>
+								<div style="text-align: left;">
+									<p:outputLabel value="Username:" for="uname" escape="false"/>
+									<br/>
+									<p:inputText value="#{loginController.username}" id="uname">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="text-align: left;">
+									<p:outputLabel value="Password:" for="pword" escape="false"/>
+									<br/>
+									<p:password value="#{loginController.password}" id="pword">
+										<p:ajax/>
+									</p:password>
+								</div>
+								<div style="margin-top: 20px;">
+									<p:commandButton value="Submit" action="#{loginController.validate}" style="margin-right: 10px;" class="btn btn-dark" update="loginform"/>
+								</div>
+							</h:panelGroup>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form rendered="#{globals.loggedin}">
+			<div class="card">
+				<div class="card-body d-flex justify-content-center">
+					<div style="width: 300px;">
+						<div style="width: 80%; text-align: center;">
+							<h:panelGroup>
+								<p:outputLabel value="You are already logged in"/>
+							</h:panelGroup>
 						</div>
 					</div>
 				</div>

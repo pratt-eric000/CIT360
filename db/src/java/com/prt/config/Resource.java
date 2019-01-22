@@ -57,4 +57,34 @@ public class Resource {
 		return null;
 	}
 
+	@Path("select/users")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postSelectUsers(String supplied) {
+		try {
+			Gson gson = new Gson();
+			String username = gson.fromJson(supplied, String.class);
+			Connection conn = DBConfig.getCurrent().getConnection();
+			if (conn != null) {
+				String query = "SELECT * FROM USERS";
+				PreparedStatement stmt = conn.prepareStatement(query);
+				stmt.setString(1, username);
+				ResultSet set = stmt.executeQuery();
+				ArrayList<String[]> resultList = new ArrayList<>();
+				while (set.next()) {
+					resultList.add(new String[]{"USERNAME", set.getString("USERNAME")});
+					resultList.add(new String[]{"PASSWORD", set.getString("PASSWORD")});
+					resultList.add(new String[]{"SALT", set.getString("SALT")});
+				}
+				set.close();
+				stmt.close();
+				return gson.toJson(resultList.toArray(new String[resultList.size()][]));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

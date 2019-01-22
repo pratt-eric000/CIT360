@@ -5,11 +5,13 @@
  */
 package com.prt.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author P-ratt
  */
-public class User {
+public class User implements Serializable {
 
 	private String firstname;
 	private String lastname;

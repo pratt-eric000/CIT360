@@ -5,8 +5,8 @@
  */
 package com.prt.controllers;
 
+import com.google.gson.Gson;
 import com.prt.models.Globals;
-import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -16,9 +16,9 @@ import javax.faces.bean.ViewScoped;
  *
  * @author P-ratt
  */
-@ManagedBean(name = "homeController")
+@ManagedBean(name = "databaseController")
 @ViewScoped
-public class HomeController implements Serializable {
+public class DatabaseController {
 
 	@ManagedProperty("globals")
 	private Globals globals;
@@ -33,6 +33,12 @@ public class HomeController implements Serializable {
 
 	@PostConstruct
 	void init() {
-
+		try {
+			Gson gson = new Gson();
+			//grab all database tables and columns in the database
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 }
