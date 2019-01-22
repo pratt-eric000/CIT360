@@ -18,6 +18,15 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private String salt;
+	private boolean admin;
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 
 	public String getSalt() {
 		return salt;

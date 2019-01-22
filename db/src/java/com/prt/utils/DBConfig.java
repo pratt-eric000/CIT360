@@ -7,7 +7,6 @@ package com.prt.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Base64;
@@ -52,29 +51,10 @@ public class DBConfig {
 				random.nextBytes(salt);
 				String saltStr = new String(Base64.getEncoder().encode(salt), "UTF-8");
 				String admin = EncryptionHelper.encrypt("admin", salt);
-				query = "INSERT INTO PASSWORD (PASSWORD, SALT) VALUES (?, ?)";
-				PreparedStatement insert = c.prepareStatement(query);
-				insert.setString(1, admin);
-				insert.setString(2, saltStr);
-				insert.execute();
-				query = "SELECT ID FROM PASSWORD";
-				set = stmt.executeQuery(query);
-				String id = null;
-				while (set.next()) {
-					id = set.getString("ID");
-				}
-				if (id != null) {
-					query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID, ADMIN) VALUES (?, ?, ?, 0)";
-					insert = c.prepareStatement(query);
-					insert.setString(1, "admin");
-					insert.setString(2, "admin");
-					insert.setString(3, id);
-					insert.execute();
-				}
-				insert.close();
-				stmt.close();
+
+				DBProcess.DoAddUser(c, new String[]{admin, saltStr, "admin", "", "admin", "1"});
 			} else {
-				query = "UPDATE USERS SET ADMIN=1 WHERE FIRSTNAME='Admin'";
+				query = "UPDATE USERS SET ADMIN=1 WHERE USERNAME='admin'";
 				stmt.execute(query);
 			}
 			set.close();
@@ -102,27 +82,7 @@ public class DBConfig {
 			String saltStr = new String(Base64.getEncoder().encode(salt), "UTF-8");
 			String admin = EncryptionHelper.encrypt("admin", salt);
 
-			query = "INSERT INTO PASSWORD (PASSWORD, SALT) VALUES (?, ?)";
-			PreparedStatement insert = c.prepareStatement(query);
-			insert.setString(1, admin);
-			insert.setString(2, saltStr);
-			insert.execute();
-			query = "SELECT ID FROM PASSWORD";
-			ResultSet set = stmt.executeQuery(query);
-			String id = null;
-			while (set.next()) {
-				id = set.getString("ID");
-			}
-			if (id != null) {
-				query = "INSERT INTO USERS (FIRSTNAME, USERNAME, PASSID, ADMIN) VALUES (?, ?, ?, 1)";
-				insert = c.prepareStatement(query);
-				insert.setString(1, "admin");
-				insert.setString(2, "admin");
-				insert.setString(3, id);
-				insert.execute();
-			}
-			insert.close();
-			stmt.close();
+			DBProcess.DoAddUser(c, new String[]{admin, saltStr, "admin", "", "admin", "1"});
 		}
 		c.commit();
 		return c;

@@ -20,7 +20,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class DatabaseController {
 
-	@ManagedProperty("globals")
+	@ManagedProperty("#{globals}")
 	private Globals globals;
 
 	public Globals getGlobals() {

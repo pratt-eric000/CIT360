@@ -7,6 +7,7 @@ package com.prt.controllers;
 
 import com.prt.models.Globals;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -19,7 +20,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class TemplateController implements Serializable {
 
-	@ManagedProperty("globals")
+	@ManagedProperty("#{globals}")
 	private Globals globals;
 
 	public Globals getGlobals() {
@@ -28,6 +29,11 @@ public class TemplateController implements Serializable {
 
 	public void setGlobals(Globals globals) {
 		this.globals = globals;
+	}
+
+	@PostConstruct
+	void init() {
+
 	}
 
 	public String logout() {

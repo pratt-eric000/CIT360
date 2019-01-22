@@ -18,7 +18,9 @@
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" style="margin: 0; border: 0; padding: 0;">
 					<div style="width: 100%; height: 100%;">
 						Header
-						<p:commandButton value="Log Out" style="float: right;" action="#{templateController.logout}" rendered="#{globals.loggedin}"/>
+						<h:form>
+							<p:commandButton value="Log Out" style="float: right;" action="#{templateController.logout}" rendered="#{globals.loggedin}"/>
+						</h:form>
 					</div>
                 </p:layoutUnit>
 
