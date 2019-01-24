@@ -6,6 +6,8 @@
 package com.prt.models;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -15,9 +17,10 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "globals")
 @SessionScoped
-public class Globals implements Serializable {
+public class Globals implements Serializable, CRUD {
 
 	public boolean loggedin = false;
+	public HashMap<String, CRUD> handler;
 
 	public boolean isLoggedin() {
 		return loggedin;
@@ -25,5 +28,21 @@ public class Globals implements Serializable {
 
 	public void setLoggedin(boolean loggedin) {
 		this.loggedin = loggedin;
+	}
+
+	@PostConstruct
+	void init() {
+		handler = new HashMap<>();
+		handler.put("createtable", new CreateTable());
+		handler.put("createdatabase", new CreateDatabase());
+		handler.put("insert", new Insert());
+		handler.put("delete", new Delete());
+		handler.put("drop", new Drop());
+		handler.put("update", new Update());
+	}
+
+	@Override
+	public String execute(String[][] params) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }

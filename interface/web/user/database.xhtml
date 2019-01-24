@@ -9,19 +9,272 @@
 	<ui:define name="title">Users</ui:define>
 
 	<ui:define name="content">
-		<h:form rendered="#{globals.loggedin}">
+		<h:form id="dbform" rendered="#{globals.loggedin}">
+			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
-				<div class="card-body d-flex justify-content-center">
-					<div style="width: 300px;">
-						<div style="width: 80%; text-align: center;">
-							<h:panelGroup>
-								Database page
-							</h:panelGroup>
-						</div>
-					</div>
+				<div class="card-body ">
+					<p:commandButton value="Add Database" oncomplete="PF('adddatabasedlg').show()" style="float: right;"/>
+					<br/><br/>
+					<p:dataTable value="#{databaseController.databases}" var="database">
+						<p:column headerText="Database Name">
+							<p:outputLabel value="#{database.name}"/>
+						</p:column>
+						<p:column headerText="Database Description">
+							<p:outputLabel value="#{database.description}"/>
+						</p:column>
+						<p:column headerText="Schema">
+							<p:outputLabel value="#{database.username}"/>
+						</p:column>
+						<p:column headerText="Actions">
+							<p:commandButton value="View Tables" actionListener="#{databaseController.updateSelectedDatabase(database)}" oncomplete="PF('viewtblsdlg').show()"/>
+						</p:column>
+					</p:dataTable>
 				</div>
 			</div>
 		</h:form>
+
+		<p:dialog widgetVar="adddatabasedlg">
+			<h:form id="adddbform">
+				<div>
+					<p:outputLabel value="Database Name"/>
+					<br/>
+					<p:inputText value="#{databaseController.newDatabase.name}"/>
+				</div>
+				<div>
+					<p:outputLabel value="Database Description"/>
+					<br/>
+					<p:inputText value="#{databaseController.newDatabase.description}"/>
+				</div>
+				<div>
+					<p:commandButton value="Add Table" style="margin-top: 20px;" oncomplete="PF('addtbldlg').show()"/>
+					<br/><br/>
+					<p:dataTable value="#{databaseController.newDatabase.tables}" var="table">
+						<p:column headerText="Table Name">
+							<p:outputLabel value="#{table.name}"/>
+						</p:column>
+						<p:column headerText="Table Description">
+							<p:outputLabel value="#{table.description}"/>
+						</p:column>
+						<p:column headerText="Actions">
+							<p:commandButton value="View Columns" actionListener="#{databaseController.updateSelectedTable(table)}" oncomplete="PF('viewcolsdlg').show()"/>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Add Database" actionListener="#{databaseController.addDB}"/>
+					<p:commandButton value="Cancel" actionListener="#{databaseController.cancelAddDB}" oncomplete="PF('adddatabasedlg').hide()"/>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="addtbldlg" style="width: 800px;">
+			<h:form id="addtblform">
+				<div>
+					<p:outputLabel value="Table Name"/>
+					<br/>
+					<p:inputText value="#{databaseController.newTable.name}"/>
+				</div>
+				<div>
+					<p:outputLabel value="Table Description"/>
+					<br/>
+					<p:inputText value="#{databaseController.newTable.description}"/>
+				</div>
+				<div>
+					<p:commandButton value="Add Column" style="margin-top: 20px;" oncomplete="PF('addcolumndlg').show()"/>
+					<br/><br/>
+					<p:dataTable value="#{databaseController.newTable.columns}" var="column">
+						<p:column headerText="Column Name">
+							<p:outputLabel value="#{column.name}"/>
+						</p:column>
+						<p:column headerText="Column Description">
+							<p:outputLabel value="#{column.description}"/>
+						</p:column>
+						<p:column headerText="Data Type">
+							<p:outputLabel value="#{column.type}"/>
+						</p:column>
+						<p:column headerText="Actions">
+							<p:commandButton value="Edit" actionListener="#{databaseController.updateSelectedColumn(column)}" oncomplete="PF('editcolumndlg').show()"/>
+							<p:commandButton value="View" actionListener="#{databaseController.updateSelectedColumn(column)}" oncomplete="PF('viewdeetsdlg').show()"/>
+						</p:column>
+					</p:dataTable>
+				</div>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Add Table" actionListener="#{databaseController.addTable}"/>
+					<p:commandButton value="Cancel" actionListener="#{databaseController.cancelAddTable}" oncomplete="PF('').hide()"/>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="viewtblsdlg">
+			<h:form id="viewtblsform">
+				<p:dataTable value="#{databaseController.selectedDatabase.tables}" var="table">
+					<p:column headerText="Column Name">
+						<p:outputLabel value="#{table.name}"/>
+					</p:column>
+					<p:column headerText="Column Description">
+						<p:outputLabel value="#{table.description}"/>
+					</p:column>
+					<p:column headerText="Actions">
+						<p:commandButton value="View Columns" actionListener="#{databaseController.updateSelectedTable(table)}" oncomplete="PF('viewcolsdlg').show()"/>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="viewcolsdlg">
+			<h:form id="viewcolsform">
+				<p:dataTable value="#{databaseController.selectedTable.columns}" var="column">
+					<p:column headerText="Column Name">
+						<p:outputLabel value="#{column.name}"/>
+					</p:column>
+					<p:column headerText="Column Description">
+						<p:outputLabel value="#{column.description}"/>
+					</p:column>
+					<p:column headerText="Data Type">
+						<p:outputLabel value="#{column.type}"/>
+					</p:column>
+					<p:column headerText="Actions">
+						<p:commandButton value="View Details" actionListener="#{databaseController.updateSelectedColumn(column)}" oncomplete="PF('viewdeetsdlg').show()"/>
+					</p:column>
+				</p:dataTable>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Close" oncomplete="PF('viewcolsdlg').hide()"/>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="addcolumndlg">
+			<h:form id="addcolform">
+				<div style="margin-top: 10px;">
+					<p:outputLabel value="Column Name"/>
+					<br/>
+					<p:inputText value="#{databaseController.newColumn.name}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div style="margin-top: 10px;">
+					<p:outputLabel value="Column Description"/>
+					<br/>
+					<p:inputText value="#{databaseController.newColumn.description}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div style="margin-top: 10px;">
+					<p:selectOneMenu value="#{databaseController.newColumn.type}">
+						<p:ajax update="addcolform"/>
+						<f:selectItem itemLabel="Data Type..."/>
+						<f:selectItems value="#{databaseController.types}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<p:selectBooleanCheckbox value="#{databaseController.newColumn.isprimarykey}" itemLabel="Primary Key">
+						<p:ajax/>
+					</p:selectBooleanCheckbox>
+					<br/>
+					<h:panelGroup rendered="#{databaseController.newColumn.type eq 'INTEGER'}">
+						<p:selectBooleanCheckbox value="#{databaseController.newColumn.isautoincremented}" itemLabel="Auto Increment">
+							<p:ajax/>
+						</p:selectBooleanCheckbox>
+						<br/>
+					</h:panelGroup>
+					<p:selectBooleanCheckbox value="#{databaseController.newColumn.notnull}" itemLabel="Not NULL">
+						<p:ajax/>
+					</p:selectBooleanCheckbox>
+				</div>
+				<div>
+					<p:outputLabel value="Max Character Length"/>
+					<br/>
+					<p:inputNumber decimalPlaces="0" value="#{databaseController.newColumn.charLength}">
+						<p:ajax/>
+					</p:inputNumber>
+				</div>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Add Column" actionListener="#{databaseController.addColumn}"/>
+					<p:commandButton value="Cancel" actionListener="#{databaseController.cancelAddColumn}" oncomplete="PF('addcolumndlg').hide()"/>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="editcolumndlg">
+			<h:form id="editcolform">
+				<div style="margin-top: 10px;">
+					<p:outputLabel value="Column Name"/>
+					<br/>
+					<p:inputText value="#{databaseController.selectedColumn.name}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div style="margin-top: 10px;">
+					<p:outputLabel value="Column Description"/>
+					<br/>
+					<p:inputText value="#{databaseController.selectedColumn.description}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div style="margin-top: 10px;">
+					<p:selectOneMenu value="#{databaseController.selectedColumn.type}">
+						<p:ajax update="addcolform"/>
+						<f:selectItem itemLabel="Data Type..."/>
+						<f:selectItems value="#{databaseController.types}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<p:selectBooleanCheckbox value="#{databaseController.selectedColumn.isprimarykey}" itemLabel="Primary Key">
+						<p:ajax/>
+					</p:selectBooleanCheckbox>
+					<br/>
+					<h:panelGroup rendered="#{databaseController.selectedColumn.type eq 'INTEGER'}">
+						<p:selectBooleanCheckbox value="#{databaseController.selectedColumn.isautoincremented}" itemLabel="Auto Increment">
+							<p:ajax/>
+						</p:selectBooleanCheckbox>
+						<br/>
+					</h:panelGroup>
+					<p:selectBooleanCheckbox value="#{databaseController.selectedColumn.notnull}" itemLabel="Not NULL">
+						<p:ajax/>
+					</p:selectBooleanCheckbox>
+				</div>
+				<div>
+					<p:outputLabel value="Max Character Length"/>
+					<br/>
+					<p:inputNumber decimalPlaces="0" value="#{databaseController.selectedColumn.charLength}">
+						<p:ajax/>
+					</p:inputNumber>
+				</div>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Edit" update="addtblform" oncomplete="PF('editcolumndlg').hide()"/>
+					<p:commandButton value="Cancel" oncomplete="PF('editcolumndlg').hide()"/>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="viewdeetsdlg">
+			<h:form id="detailsform">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Name"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.name}"/>
+
+					<p:outputLabel value="Description"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.description}"/>
+
+					<p:outputLabel value="Type"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.type}"/>
+
+					<p:outputLabel value="Character length"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.charLength}"/>
+
+					<p:outputLabel value="Primary Key"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.isprimarykey}"/>
+
+					<p:outputLabel value="Auto Increment"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.isautoincremented}"/>
+
+					<p:outputLabel value="Not NULL"/>
+					<p:outputLabel value="#{databaseController.selectedColumn.notnull}"/>
+				</p:panelGrid>
+				<br/>
+				<p:commandButton style="margin-top: 10px;" value="Close" oncomplete="PF('viewdeetsdlg').hide()"/>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>
