@@ -10,6 +10,7 @@ import com.prt.models.Column;
 import com.prt.models.Database;
 import com.prt.models.Globals;
 import com.prt.models.Table;
+import com.prt.utils.RestUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,6 +124,66 @@ public class DatabaseController implements Serializable {
 		try {
 			Gson gson = new Gson();
 			//grab all database tables and columns in the database
+			String[][][] results = gson.fromJson(RestUtil.post("http://localhost:8080/db/webresources/repository/databases", null), String[][][].class);
+			if (results != null && results.length > 0) {
+				for (String[][] row : results) {
+					Database database = new Database();
+					for (String[] col : row) {
+						if (col[0].equalsIgnoreCase("ID")) {
+							database.setId(col[1]);
+						} else if (col[0].equalsIgnoreCase("NAME")) {
+							database.setName(col[1]);
+						} else if (col[0].equalsIgnoreCase("DESC")) {
+							database.setDescription(col[1]);
+						}
+						//with database ID, I can search for the tables in it
+						String[][][] tblResults = gson.fromJson(RestUtil.post("http://localhost:8080/db/webresources/repository/database/tables", gson.toJson(new String[]{database.getId()})), String[][][].class);
+						if (tblResults != null && tblResults.length > 0) {
+							for (String[][] tblrow : tblResults) {
+								Table table = new Table();
+								for (String[] tblcol : tblrow) {
+									if (tblcol[0].equalsIgnoreCase("ID")) {
+										table.setId(tblcol[1]);
+									} else if (tblcol[0].equalsIgnoreCase("NAME")) {
+										table.setName(tblcol[1]);
+									} else if (tblcol[0].equalsIgnoreCase("DESC")) {
+										table.setDescription(tblcol[1]);
+									}
+									//with table ID, I can search for the columns related to the table
+									String[][][] colResults = gson.fromJson(RestUtil.post("http://localhost:8080/db/webresources/repository/table/columns", gson.toJson(new String[]{table.getId()})), String[][][].class);
+									if (colResults != null && colResults.length > 0) {
+										for (String[][] colRow : colResults) {
+											Column column = new Column();
+											for (String[] colcol : colRow) {
+												if (colcol[0].equalsIgnoreCase("ID")) {
+													column.setId(colcol[1]);
+												} else if (colcol[0].equalsIgnoreCase("CHAR_LENGTH")) {
+													column.setCharLength(Integer.parseInt(colcol[1]));
+												} else if (colcol[0].equalsIgnoreCase("DESCRIPTION")) {
+													column.setDescription(colcol[1]);
+												} else if (colcol[0].equalsIgnoreCase("AUTO_INCREMENTED")) {
+													column.setIsautoincremented(colcol[1].equals("1"));
+												} else if (colcol[0].equalsIgnoreCase("PRIMARY_KEY")) {
+													column.setIsprimarykey(colcol[1].equals("1"));
+												} else if (colcol[0].equalsIgnoreCase("NAME")) {
+													column.setName(colcol[1]);
+												} else if (colcol[0].equalsIgnoreCase("TYPE")) {
+													column.setType(colcol[1]);
+												} else if (colcol[0].equalsIgnoreCase("NOT_NULL")) {
+													column.setNotnull(colcol[1].equals("1"));
+												}
+											}
+											table.getColumns().add(column);
+										}
+									}
+								}
+								database.getTables().add(table);
+							}
+						}
+					}
+					databases.add(database);
+				}
+			}
 			types = new ArrayList<>(Arrays.asList(new String[]{
 				"INTEGER",
 				"VARCHAR",

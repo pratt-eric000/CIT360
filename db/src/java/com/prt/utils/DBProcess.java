@@ -8,6 +8,7 @@ package com.prt.utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -52,10 +53,52 @@ public class DBProcess {
 		}
 	}
 
-	public static void DoAddDatabases(String[][][] params) throws Exception {
+	public static void DoAddDatabases(String[][][][] params) throws Exception {
 		Connection conn = DBConfig.getCurrent().getConnection();
 		if (conn != null) {
 
 		}
+	}
+
+	public static void createTable(String[][][] params) throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+			for (String[][] table : params) {
+				String separator = "";
+				String query = "CREATE " + table[0][0] + " (";
+				for (String[] column : table) {
+					query += separator + column[0] + " " + column[1];
+					separator = ", ";
+				}
+				query += ") ";
+				Statement stmt = conn.createStatement();
+				stmt.execute(query);
+				stmt.close();
+			}
+		}
+	}
+
+	public static String[][][] DoGetDatabases() throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+
+		}
+		return null;
+	}
+
+	public static String[][][] DoGetDatabaseTables() throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+
+		}
+		return null;
+	}
+
+	public static String[][][] DoGetTableColumns() throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+
+		}
+		return null;
 	}
 }

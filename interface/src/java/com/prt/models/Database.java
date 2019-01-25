@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class Database implements Serializable {
 
+	private String id;
 	private String name;
 	private String description;
 	private String username;
@@ -21,7 +22,13 @@ public class Database implements Serializable {
 	private String salt;
 	private ArrayList<Table> tables = new ArrayList<>();
 
-	;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public ArrayList<Table> getTables() {
 		return tables;

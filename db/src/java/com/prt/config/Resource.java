@@ -112,12 +112,51 @@ public class Resource {
 	public String postAddNewDatabases(String content) {
 		Gson gson = new Gson();
 		try {
-			String[][][] params = gson.fromJson(content, String[][][].class);
-			Connection conn = DBConfig.getCurrent().getConnection();
-			if (conn != null) {
-				DBProcess.DoAddDatabases(params);
-			}
+			String[][][][] params = gson.fromJson(content, String[][][][].class);
+			DBProcess.DoAddDatabases(params);
 			return gson.toJson(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson(false);
+	}
+
+	@Path("databases")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postGetDatabases() {
+		Gson gson = new Gson();
+		try {
+			return gson.toJson(DBProcess.DoGetDatabases());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson(false);
+	}
+
+	@Path("database/tables")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postGetDatabaseTables() {
+		Gson gson = new Gson();
+		try {
+			return gson.toJson(DBProcess.DoGetDatabaseTables());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson(false);
+	}
+
+	@Path("table/columns")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postGetTableColumns() {
+		Gson gson = new Gson();
+		try {
+			return gson.toJson(DBProcess.DoGetTableColumns());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

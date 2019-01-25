@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class Column implements Serializable {
 
+	private String id;
 	private String name;
 	private String description;
 	private String label;
@@ -23,6 +24,14 @@ public class Column implements Serializable {
 	private String primarykey;
 	private int charLength;
 	private boolean isautoincremented;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public boolean isIsautoincremented() {
 		return isautoincremented;
