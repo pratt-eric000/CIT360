@@ -6,6 +6,8 @@
 package com.prt.utils;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -13,4 +15,7 @@ import javax.servlet.http.HttpServlet;
  */
 public class ServletFilter extends HttpServlet {
 
+	public void filter(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("Test");
+	}
 }

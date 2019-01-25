@@ -5,13 +5,14 @@
  */
 package com.prt.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author P-ratt
  */
-public class Database {
+public class Database implements Serializable {
 
 	private String name;
 	private String description;

@@ -5,11 +5,13 @@
  */
 package com.prt.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author P-ratt
  */
-public class Column {
+public class Column implements Serializable {
 
 	private String name;
 	private String description;

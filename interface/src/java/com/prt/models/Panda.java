@@ -5,11 +5,13 @@
  */
 package com.prt.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author P-ratt
  */
-public class Panda implements Animal {
+public class Panda implements Serializable, Animal {
 
 	private String name;
 	private String desc;

@@ -5,11 +5,13 @@
  */
 package com.prt.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author P-ratt
  */
-public class Goat implements Animal {
+public class Goat implements Serializable, Animal {
 
 	private String name;
 	private String desc;
