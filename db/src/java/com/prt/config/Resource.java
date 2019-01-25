@@ -97,9 +97,25 @@ public class Resource {
 		Gson gson = new Gson();
 		try {
 			String[] params = gson.fromJson(content, String[].class);
+			DBProcess.DoAddUser(params);
+			return gson.toJson(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson(false);
+	}
+
+	@Path("database/add")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postAddNewDatabases(String content) {
+		Gson gson = new Gson();
+		try {
+			String[][][] params = gson.fromJson(content, String[][][].class);
 			Connection conn = DBConfig.getCurrent().getConnection();
 			if (conn != null) {
-				DBProcess.DoAddUser(conn, params);
+				DBProcess.DoAddDatabases(params);
 			}
 			return gson.toJson(true);
 		} catch (Exception e) {

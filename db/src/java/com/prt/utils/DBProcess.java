@@ -15,6 +15,13 @@ import java.sql.ResultSet;
  */
 public class DBProcess {
 
+	public static void DoAddUser(String[] params) throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+			DoAddUser(conn, params);
+		}
+	}
+
 	public static void DoAddUser(Connection c, String[] params) {
 		try {
 			String query = "INSERT INTO PASSWORD (PASSWORD, SALT) VALUES (?, ?)";
@@ -43,6 +50,12 @@ public class DBProcess {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	public static void DoAddDatabases(String[][][] params) throws Exception {
+		Connection conn = DBConfig.getCurrent().getConnection();
+		if (conn != null) {
+
+		}
 	}
 }

@@ -1,0 +1,153 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Collections</ui:define>
+
+	<ui:define name="content">
+		<style type="text/css">
+			div .header{
+				border: 1pt solid black;
+				text-align: center;
+				padding: 5px 5px 0 5px;
+				background-color: lightgrey;
+			}
+		</style>
+		<h:form id="collectionsform" rendered="#{globals.loggedin}">
+			<p:growl id="growl" showDetail="true"/>
+			<div class="card">
+				<div class="card-body d-flex justify-content-center">
+					<p:panelGrid>
+						<p:row style="border: 0;">
+							<p:column style="border: 0; text-align: center;">
+								<p:commandButton value="Print List" actionListener="#{collectionsController.printList(collectionsController.list)}" update="collectionsform"/>
+							</p:column>
+							<p:column style="border: 0; text-align: center;">
+								<p:commandButton value="Print List" actionListener="#{collectionsController.printList(collectionsController.set)}" update="collectionsform"/>
+							</p:column>
+							<p:column style="border: 0; text-align: center;">
+								<p:commandButton value="Print List" actionListener="#{collectionsController.printList(collectionsController.map)}" update="collectionsform"/>
+							</p:column>
+							<p:column style="border: 0; text-align: center;">
+								<p:commandButton value="Print List" actionListener="#{collectionsController.printList(collectionsController.queue)}" update="collectionsform"/>
+							</p:column>
+							<p:column style="border: 0; text-align: center;">
+								<p:commandButton value="Print List" actionListener="#{collectionsController.printList(collectionsController.treeset)}" update="collectionsform"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column headerText="List" style="vertical-align: top;">
+								<div class="header">
+									<h3>List</h3>
+								</div>
+								<div style="margin-top: 10px;">
+									<p:outputLabel value="New Item"/>
+									<br/>
+									<p:inputText value="#{collectionsController.listitem}">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="margin-top: 20px; margin-bottom: 20px;">
+									<p:commandButton value="Add Item" actionListener="#{collectionsController.addListItem}" update="collectionsform"/>
+								</div>
+								<p:dataList value="#{collectionsController.list}" var="item">
+									<p:outputLabel value="#{item}"/>
+								</p:dataList>
+							</p:column>
+							<p:column headerText="Set" style="vertical-align: top;">
+								<div class="header">
+									<h3>Set</h3>
+								</div>
+								<div style="margin-top: 10px;">
+									<p:outputLabel value="New Item"/>
+									<br/>
+									<p:inputText value="#{collectionsController.setitem}">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="margin-top: 20px; margin-bottom: 20px;">
+									<p:commandButton value="Add Item" update="collectionsform" actionListener="#{collectionsController.addSetItem}"/>
+								</div>
+								<p:dataList value="#{collectionsController.setValues}" var="item">
+									<p:outputLabel value="#{item}"/>
+								</p:dataList>
+							</p:column>
+							<p:column headerText="Map" style="vertical-align: top;">
+								<div class="header">
+									<h3>Map</h3>
+								</div>
+								<div style="margin-top: 10px;">
+									<p:outputLabel value="New Map Key"/>
+									<br/>
+									<p:inputText value="#{collectionsController.mapkey}">
+										<p:ajax/>
+									</p:inputText>
+									<br/>
+									<p:outputLabel value="New Map Value"/>
+									<br/>
+									<p:inputText value="#{collectionsController.mapvalue}">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="margin-top: 20px; margin-bottom: 20px;">
+									<p:commandButton value="Add Item" update="collectionsform" actionListener="#{collectionsController.addMapItem}"/>
+								</div>
+								<div style="width: 400px;">
+									<p:dataTable value="#{collectionsController.mapEntries}" var="entry">
+										<p:column headerText="Key">
+											<p:outputLabel value="#{entry.key}"/>
+										</p:column>
+										<p:column headerText="Value">
+											<p:outputLabel value="#{entry.value}"/>
+										</p:column>
+									</p:dataTable>
+								</div>
+							</p:column>
+							<p:column headerText="Queue" style="vertical-align: top;">
+								<div class="header">
+									<h3>Queue</h3>
+								</div>
+								<div style="margin-top: 10px;">
+									<p:outputLabel value="New Item"/>
+									<br/>
+									<p:inputText value="#{collectionsController.queueitem}">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="margin-top: 20px; margin-bottom: 20px;">
+									<p:commandButton value="Add Item" update="collectionsform" actionListener="#{collectionsController.addQueueItem}"/>
+								</div>
+								<p:dataList value="#{collectionsController.queue}" var="item">
+									<p:outputLabel value="#{item}"/>
+								</p:dataList>
+							</p:column>
+							<p:column headerText="Tree Set" style="vertical-align: top;">
+								<div class="header">
+									<h3>Tree Set</h3>
+								</div>
+								<div style="margin-top: 10px;">
+									<p:outputLabel value="New Item"/>
+									<br/>
+									<p:inputText value="#{collectionsController.treesetitem}">
+										<p:ajax/>
+									</p:inputText>
+								</div>
+								<div style="margin-top: 20px; margin-bottom: 20px;">
+									<p:commandButton value="Add Item" update="collectionsform" actionListener="#{collectionsController.addTreesetItem}"/>
+								</div>
+								<p:dataList value="#{collectionsController.treeset}" var="item">
+									<p:outputLabel value="#{item}"/>
+								</p:dataList>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
