@@ -1,0 +1,29 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Application Controller</ui:define>
+
+	<ui:define name="content">
+		<h:form id="applicationform" rendered="#{globals.loggedin}">
+			<p:growl id="growl" showDetail="true"/>
+			<div class="card">
+				<div class="card-body d-flex justify-content-center">
+					<div style="width: 800px;">
+						<h1 style="text-align: center;">Click an animal for a reaction!</h1>
+						<p:repeat value="#{applicationController.animals}" var="animal">
+							<p:commandLink update="applicationform" actionListener="#{applicationController.makeNoise(animal)}">
+								<p:graphicImage value="/images/#{animal}.jpg"/>
+							</p:commandLink>
+						</p:repeat>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
