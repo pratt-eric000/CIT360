@@ -70,9 +70,9 @@ public class Resource {
 			if (conn != null) {
 				Statement stmt = conn.createStatement();
 				ResultSet set = stmt.executeQuery("SELECT * FROM USERS");
-				ArrayList<String[]> resultList = new ArrayList<>();
 				ArrayList<String[][]> allUsers = new ArrayList<>();
 				while (set.next()) {
+					ArrayList<String[]> resultList = new ArrayList<>();
 					resultList.add(new String[]{"FIRSTNAME", set.getString("FIRSTNAME")});
 					resultList.add(new String[]{"LASTNAME", set.getString("LASTNAME")});
 					resultList.add(new String[]{"USERNAME", set.getString("USERNAME")});
@@ -139,10 +139,11 @@ public class Resource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String postGetDatabaseTables() {
+	public String postGetDatabaseTables(String contents) {
 		Gson gson = new Gson();
 		try {
-			return gson.toJson(DBProcess.DoGetDatabaseTables());
+			String id = gson.fromJson(contents, String.class);
+			return gson.toJson(DBProcess.DoGetDatabaseTables(id));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -153,10 +154,11 @@ public class Resource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String postGetTableColumns() {
+	public String postGetTableColumns(String contents) {
 		Gson gson = new Gson();
 		try {
-			return gson.toJson(DBProcess.DoGetTableColumns());
+			String id = gson.fromJson(contents, String.class);
+			return gson.toJson(DBProcess.DoGetTableColumns(id));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -159,7 +159,7 @@ public class DatabaseController implements Serializable {
 													column.setId(colcol[1]);
 												} else if (colcol[0].equalsIgnoreCase("CHAR_LENGTH")) {
 													column.setCharLength(Integer.parseInt(colcol[1]));
-												} else if (colcol[0].equalsIgnoreCase("DESCRIPTION")) {
+												} else if (colcol[0].equalsIgnoreCase("DESC")) {
 													column.setDescription(colcol[1]);
 												} else if (colcol[0].equalsIgnoreCase("AUTO_INCREMENTED")) {
 													column.setIsautoincremented(colcol[1].equals("1"));
