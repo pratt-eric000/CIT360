@@ -1,0 +1,79 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Add Members</ui:define>
+
+	<ui:define name="content">
+		<h:form id="hibernateform">
+			<p:growl id="growl" showDetail="true"/>
+			<div class="card">
+				<div class="card-body d-flex justify-content-center">
+					<div>
+						<p:panelGrid>
+							<p:row style="vertical-align: top;">
+								<p:column>
+									<div>
+										<p:outputLabel value="Username"/>
+										<br/>
+										<p:inputText value="#{dbController.username}"/>
+									</div>
+									<div>
+										<p:outputLabel value="First Name"/>
+										<br/>
+										<p:inputText value="#{dbController.firstname}"/>
+									</div>
+									<div>
+										<p:outputLabel value="Last Name"/>
+										<br/>
+										<p:inputText value="#{dbController.lastname}"/>
+									</div>
+									<div>
+										<p:outputLabel value="Email"/>
+										<br/>
+										<p:inputText value="#{dbController.email}"/>
+									</div>
+									<div>
+										<p:outputLabel value="Password"/>
+										<br/>
+										<p:password value="#{dbController.password}"/>
+									</div>
+									<div style="margin-top: 20px;">
+										<p:commandButton value="Add Member" actionListener="#{dbController.addMember}" update="hibernateform"/>
+									</div>
+								</p:column>
+								<p:column>
+									<p:dataTable value="#{dbController.members}" var="member">
+										<p:column headerText="Username">
+											<p:outputLabel value="#{member.username}"/>
+										</p:column>
+										<p:column headerText="First Name">
+											<p:outputLabel value="#{member.firstname}"/>
+										</p:column>
+										<p:column headerText="Last Name">
+											<p:outputLabel value="#{member.lastname}"/>
+										</p:column>
+										<p:column headerText="Email">
+											<p:outputLabel value="#{member.email}"/>
+										</p:column>
+										<p:column headerText="Password">
+											<p:outputLabel value="#{member.password}"/>
+										</p:column>
+										<p:column headerText="Actions" style="text-align: center; width: 10%;">
+											<p:commandButton value="Remove" actionListener="#{dbController.removeMember(member)}" update="hibernateform"/>
+										</p:column>
+									</p:dataTable>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
