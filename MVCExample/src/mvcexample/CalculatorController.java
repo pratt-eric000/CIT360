@@ -34,7 +34,7 @@ public class CalculatorController {
 			try {
 				String opperand = e.getActionCommand();
 				model.addOpperand(opperand, view.getResultText());
-				view.setResultText(model.getDisplay());
+				view.setResultText(parseDisplay(model.getDisplay()));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -48,7 +48,7 @@ public class CalculatorController {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				model.calculate();
-				view.setResultText(model.getDisplay());
+				view.setResultText(parseDisplay(model.getDisplay()));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -61,10 +61,22 @@ public class CalculatorController {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				model.resetCalculator();
-				view.setResultText(model.getDisplay());
+				view.setResultText(parseDisplay(model.getDisplay()));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
+	}
+
+	public String parseDisplay(String[] operations) {
+		StringBuilder results = new StringBuilder();
+		String separator = "";
+		for (String operation : operations) {
+			if (operation != null && operation.length() > 0) {
+				results.append(separator).append(operation);
+				separator = "  ";
+			}
+		}
+		return results.toString();
 	}
 }

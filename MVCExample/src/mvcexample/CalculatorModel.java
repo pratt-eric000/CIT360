@@ -99,11 +99,11 @@ public class CalculatorModel {
 				numbers.append(existingDisplay);
 			}
 			if (numbers.length() > 0) {
-				if (numbers.length() > 0) {
-					operations.add(numbers.toString());
-					numbers = new StringBuilder();
-					prevOperation = null;
-				}
+				operations.add(numbers.toString());
+				numbers = new StringBuilder();
+				prevOperation = null;
+			}
+			if (!operations.isEmpty()) {
 				if (prevOperation == null) {
 					prevOperation = opperand;
 				} else {

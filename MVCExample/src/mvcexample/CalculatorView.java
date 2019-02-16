@@ -108,14 +108,8 @@ public class CalculatorView extends JFrame {
 		JOptionPane.showMessageDialog(this, message);
 	}
 
-	public void setResultText(String[] operations) {
-		StringBuilder results = new StringBuilder();
-		String separator = "";
-		for (String operation : operations) {
-			results.append(separator).append(operation);
-			separator = "  ";
-		}
-		result.setText(results.toString());
+	public void setResultText(String display) {
+		result.setText(display);
 	}
 
 	public String getResultText() {
