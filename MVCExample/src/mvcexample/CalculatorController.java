@@ -21,13 +21,13 @@ public class CalculatorController {
 		this.view = view;
 		this.model = model;
 
-		this.view.addCalculationListeners(new CalculateListener());
-		this.view.addCalculateListener(new OperationListener());
+		this.view.addCalculationListeners(new SelectOpperandListener());
+		this.view.addCalculateListener(new CalculateListener());
 		this.view.addResetListener(new ResetListener());
 
 	}
 
-	class CalculateListener implements ActionListener {
+	class SelectOpperandListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -42,7 +42,7 @@ public class CalculatorController {
 
 	}
 
-	class OperationListener implements ActionListener {
+	class CalculateListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
