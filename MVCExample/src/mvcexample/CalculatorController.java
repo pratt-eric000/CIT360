@@ -21,25 +21,50 @@ public class CalculatorController {
 		this.view = view;
 		this.model = model;
 
-		this.view.addCalculationListener(new CalculateListener());
+		this.view.addCalculationListeners(new CalculateListener());
+		this.view.addCalculateListener(new OperationListener());
+		this.view.addResetListener(new ResetListener());
+
 	}
 
 	class CalculateListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int firstNumber, secondNumber = 0;
-
 			try {
-				firstNumber = view.getFirstNumber();
-				secondNumber = view.getSecondNumber();
-				model.addTwoNumbers(firstNumber, secondNumber);
-
-				view.setCalcSolution(model.getCalculation());
+				String opperand = e.getActionCommand();
+				model.addOpperand(opperand, view.getResultText());
+				view.setResultText(model.getDisplay());
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 
+	}
+
+	class OperationListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				model.calculate();
+				view.setResultText(model.getDisplay());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	class ResetListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				model.resetCalculator();
+				view.setResultText(model.getDisplay());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 }

@@ -29,10 +29,12 @@ public class DB {
 	private String lastname;
 	private String email;
 	private String password;
+	private int recHist;
 
 	@PostConstruct
 	void init() {
 		getAllMembers();
+		recHist = members.size();
 	}
 
 	public Members getMember() {
