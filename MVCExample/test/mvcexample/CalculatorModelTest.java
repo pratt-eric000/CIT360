@@ -57,8 +57,11 @@ public class CalculatorModelTest {
 	@Test
 	public void testAddOpperandsToExistingResult() {
 		CalculatorView view = new CalculatorView();
+		CalculatorView view2 = new CalculatorView();
 		CalculatorModel model = new CalculatorModel();
+		CalculatorModel model2 = new CalculatorModel();
 		CalculatorController controller = new CalculatorController(view, model);
+		CalculatorController controller2 = new CalculatorController(view2, model2);
 		model.addOpperand("5");
 		model.addOpperand("+");
 		model.addOpperand("6");
@@ -73,7 +76,16 @@ public class CalculatorModelTest {
 		display = controller.parseDisplay(model.getDisplay());
 		assertEquals("23  -  4", display);
 		model.calculate();
-		assertEquals("19", model.getAnswer());
+		model2.addOpperand("5");
+		model2.addOpperand("+");
+		model2.addOpperand("6");
+		model2.addOpperand("*");
+		model2.addOpperand("3");
+		model2.addOpperand("-");
+		model2.addOpperand("4");
+		model2.calculate();
+		controller2.parseDisplay(model2.getDisplay());
+		assertEquals(model2.getAnswer(), model.getAnswer());
 	}
 
 	@Test
@@ -90,6 +102,37 @@ public class CalculatorModelTest {
 		StringBuilder numbers = model.getNumbers();
 		assertArrayEquals(new String[]{}, opperations.toArray(new String[opperations.size()]));
 		assertEquals(0, numbers.length());
+	}
+
+	@Test
+	public void testNotSameResult() {
+		CalculatorView view = new CalculatorView();
+		CalculatorModel model = new CalculatorModel();
+		CalculatorController controller = new CalculatorController(view, model);
+		model.addOpperand("8");
+		model.addOpperand("4");
+		model.addOpperand("-");
+		model.addOpperand("2");
+		model.addOpperand("*");
+		model.addOpperand("7");
+		model.saveOperations();
+		model.resetCalculator();
+		model.addOpperand("8");
+		model.addOpperand("8");
+		model.addOpperand("4");
+		model.addOpperand("-");
+		model.addOpperand("2");
+		model.addOpperand("*");
+		model.addOpperand("7");
+		assertNotSame(model.getOperations(), model.getSavedOperations());
+	}
+
+	@Test
+	public void testListsNotNull() {
+		CalculatorModel model = new CalculatorModel();
+		assertNotNull(model.getOperations());
+		assertNotNull(model.getSavedOperations());
+		assertNotNull(model.getHelper());
 	}
 
 }

@@ -73,8 +73,9 @@ public class URLHelper {
 					resultMenu += template;
 					varitems.addAll(new ArrayList<>(Arrays.asList(new String[]{String.valueOf(i + 1), title})));
 				}
-				resultMenu += template + template + "********************************************\n\nSelection> ";
+				resultMenu += template + template + template + "********************************************\n\nSelection> ";
 				varitems.addAll(new ArrayList<>(Arrays.asList(new String[]{String.valueOf(totalResults + 1), "Search a different movie"})));
+				varitems.addAll(new ArrayList<>(Arrays.asList(new String[]{String.valueOf(totalResults + 3), "Print JSON format of results"})));
 				varitems.addAll(new ArrayList<>(Arrays.asList(new String[]{"0", "Exit Program"})));
 				vars = varitems.toArray(new String[varitems.size()]);
 			}
@@ -112,6 +113,9 @@ public class URLHelper {
 					resetMenuOptions();
 				} else if (choice == results.size() + 2) {
 					buildResults();
+				} else if (choice == results.size() + 3) {
+					printJSON();
+					resetMenuOptions();
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -122,6 +126,15 @@ public class URLHelper {
 			questionUser();
 		} else if (choice == 0) {
 			System.out.println("\nThank you for using our services");
+		}
+	}
+
+	public void printJSON() {
+		try {
+			JSONObject obj = new JSONObject(response);
+			System.out.println(obj.toString(2));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

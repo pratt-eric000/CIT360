@@ -16,16 +16,15 @@ import java.util.Map;
 public class CalculatorModel {
 
 	private int calcValue;
-	private ArrayList<String> operations;
-	private Map<String, Operator> helper;
+	private ArrayList<String> operations = new ArrayList<>();
+	private Map<String, Operator> helper = new HashMap<>();
 	private String prevOperation;
 	private StringBuilder numbers;
 	private String answer;
 	private String[] display;
+	private ArrayList<ArrayList<String>> savedOperations = new ArrayList<>();
 
 	CalculatorModel() {
-		operations = new ArrayList<>();
-		helper = new HashMap<>();
 		helper.put("+", new Add());
 		helper.put("-", new Subtract());
 		helper.put("*", new Multiply());
@@ -33,6 +32,14 @@ public class CalculatorModel {
 
 		prevOperation = null;
 		numbers = new StringBuilder();
+	}
+
+	public ArrayList<ArrayList<String>> getSavedOperations() {
+		return savedOperations;
+	}
+
+	public void setSavedOperations(ArrayList<ArrayList<String>> savedOperations) {
+		this.savedOperations = savedOperations;
 	}
 
 	public String[] getDisplay() {
@@ -169,5 +176,9 @@ public class CalculatorModel {
 		operations = new ArrayList<>();
 		numbers = new StringBuilder();
 		display = new String[]{};
+	}
+
+	public void saveOperations() {
+		savedOperations.add(operations);
 	}
 }
