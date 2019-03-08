@@ -31,6 +31,7 @@ public class ThreadsExample {
 			System.out.println(menu);
 			System.out.print("\n1)\t\tSwim\n2)\t\tJump\n3)\t\tCry\n\nAnswer> ");
 			input.nextInt();
+			Thread.sleep(1000);
 			menu = "What else would you like to do?";
 		}
 		System.out.println(Arrays.toString(OddBallObject.hashes));
