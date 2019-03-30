@@ -5,7 +5,10 @@
  */
 package simplethreads;
 
+import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import simple.Job;
 import simple.Waiter;
 
@@ -23,32 +26,28 @@ public class SimpleThreads {
 		System.out.print("Please tell me the task that was assigned to you: ");
 		String task = input.nextLine();
 		Job job = new Job(task);
-		Waiter waiter = new Waiter(job);
-		new Thread(waiter, "Dishes").start();
+		Runnable runnable = new Waiter(job);
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		service.execute(runnable);
 
-		String defaultmenu = "What would you like to do next?\n\n"
-				+ "1)\t" + job.getJobName() + "\n"
-				+ "2)\tDo Other Things\n"
-				+ "3)\tQuit\n\n"
-				+ "> ";
+		System.out.println("The task you have chosen will take an unspecified amount of time to accomplish. We will check back on the task every 3 seconds to see if it is done.");
+
 		try {
-			Thread.sleep(500);
-			int choice = -1;
-			while (choice != 3 && !waiter.isDone()) {
-				System.out.print("\n\n" + defaultmenu);
-				choice = input.nextInt();
-				switch (choice) {
-					case 1:
-						waiter.performTask();
-						break;
-					case 2:
-						waiter.doOtherThings();
-						break;
-				}
+			Random rand = new Random();
+			int num = (rand.nextInt(60) + 1);
+			System.out.println("The time allotted for the task is " + num + " seconds.");
+			long init = System.currentTimeMillis() / 1000;
+			for (long i = init; i < init + num; i += (System.currentTimeMillis() / 1000) - (init)) {
+				System.out.println("Checking...");
+				Thread.sleep(2000);
+				System.out.println("Still not done...");
 				Thread.sleep(500);
 			}
-			System.out.println("Thank you for doing the things");
+			synchronized (job) {
+				job.notify();
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}

@@ -41,27 +41,4 @@ public class Waiter implements Runnable {
 		}
 	}
 
-	public void doOtherThings() throws Exception {
-		System.out.println("Time required to perform [" + job.getJobName() + "] has increased");
-		time += 3;
-		Thread.sleep(500);
-		for (int i = 0; i < 3; i++) {
-			System.out.print(".");
-			Thread.sleep(1000);
-		}
-		System.out.println("Be sure to perform your task soon.");
-	}
-
-	public void performTask() throws Exception {
-		System.out.print("Starting to perform task");
-		for (int i = 0; i < time; i++) {
-			System.out.print(".");
-			Thread.sleep(1000);
-		}
-		synchronized (job) {
-			job.notify();
-			time = 0;
-		}
-	}
-
 }
