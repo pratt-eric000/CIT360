@@ -22,6 +22,14 @@ public class Globals {
 	public String username;
 	public int selectedScreen;
 
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}

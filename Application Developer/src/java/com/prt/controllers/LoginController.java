@@ -70,7 +70,7 @@ public class LoginController implements Serializable {
 
 	@PostConstruct
 	void init() {
-		screen = "user/default.xhtml";
+		screen = "default.xhtml";
 	}
 
 	public String validate() {
@@ -85,14 +85,13 @@ public class LoginController implements Serializable {
 					global.userId = user.getId();
 					global.username = user.getUsername();
 					global.userRole = user.getRole();
-					if (user.getRole().equalsIgnoreCase("admin")) {
-						screen = "admin/home.xhtml";
-					} else {
-						//return the default screen for the given role
-						Session session = HibernateInstances.getCurrent().getSession();
-						List<RoleScreenXref> roleScreens = (List<RoleScreenXref>) session.createQuery("from RoleScreenXref where roleId = :rid").setParameter("rid", user.getRoleId()).list();
-						if (roleScreens != null && !roleScreens.isEmpty()) {
-							global.selectedScreen = roleScreens.get(0).getId();
+					Session session = HibernateInstances.getCurrent().getSession();
+					List<RoleScreenXref> roleScreens = (List<RoleScreenXref>) session.createQuery("from RoleScreenXref where roleId = :rid").setParameter("rid", user.getRoleId()).list();
+					if (roleScreens != null && !roleScreens.isEmpty()) {
+						global.selectedScreen = roleScreens.get(0).getId();
+						if (user.getRole().equalsIgnoreCase("admin")) {
+							screen = "admin/home.xhtml";
+						} else {
 							screen = "user/program.xhtml";
 						}
 					}
