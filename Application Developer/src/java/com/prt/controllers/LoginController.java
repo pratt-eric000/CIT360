@@ -51,12 +51,12 @@ public class LoginController implements Serializable {
 	public String validate() {
 		try {
 			Gson gson = new Gson();
-			User user = gson.fromJson(RestUtil.post("http://localhost:8080/db/webresources/repository/select/user", gson.toJson(username)), User.class);
+			User user = gson.fromJson(RestUtil.post("http://localhost:8080/data/resources/repository/select/user", gson.toJson(username)), User.class);
 			if (user != null) {
 				//validate by hashing given password and match it with the password retrieved from the database
 				String compare = EncryptionHelper.encrypt(password, Base64.getDecoder().decode(user.getSalt()));
 				if (compare != null && compare.equals(user.getPassword())) {
-					return "/app/home.xhtml?faces-redirect=true";
+					return "/app/main/home.xhtml?faces-redirect=true";
 				}
 			}
 		} catch (JsonSyntaxException e) {

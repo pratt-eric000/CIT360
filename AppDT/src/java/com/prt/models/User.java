@@ -23,6 +23,21 @@ public class User implements Serializable {
 	private String password;
 	private String salt;
 
+	public User() {
+
+	}
+
+	public User(String firstName, String lastName, String email, String phoneNumber, String username, int passwordId, String password, String salt) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.username = username;
+		this.passwordId = passwordId;
+		this.password = password;
+		this.salt = salt;
+	}
+
 	public String getPassword() {
 		return password;
 	}

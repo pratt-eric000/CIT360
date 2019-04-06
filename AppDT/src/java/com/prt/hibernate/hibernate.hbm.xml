@@ -44,37 +44,37 @@ Contributor(s):
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="erc.prt.models.User" table="users">
-		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+	<class name="com.prt.models.User" table="users">
+		<id column="ID" name="id" type="java.lang.Integer">
+			<generator class="increment"/>
 		</id>
-		<property column="first_name" name="firstName" type="String"/>
-		<property column="last_name" name="lastName" type="String"/>
-		<property column="email" name="email" type="String"/>
-		<property column="phone_number" name="phoneNumber" type="String"/>
-		<property column="username" name="username" type="String"/>
+		<property column="first_name" name="firstName" type="string"/>
+		<property column="last_name" name="lastName" type="string"/>
+		<property column="email" name="email" type="string"/>
+		<property column="phone_number" name="phoneNumber" type="string"/>
+		<property column="username" name="username" type="string"/>
 		<property column="password_id" name="passwordId" type="java.lang.Integer"/>
 	</class>
 
-	<class name="erc.prt.models.Password" table="passwords">
+	<class name="com.prt.models.Password" table="passwords">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
-		<property column="password" name="password" type="String"/>
-		<property column="salt" name="salt" type="String"/>
+		<property column="password" name="password" type="string"/>
+		<property column="salt" name="salt" type="string"/>
 	</class>
 
-	<class name="erc.prt.models.Role" table="roles">
+	<class name="com.prt.models.Role" table="roles">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
-		<property column="name" name="name" type="String"/>
-		<property column="desc" name="desc" type="String"/>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
 	</class>
 
-	<class name="erc.prt.models.UserRoleXref" table="user_role_xref">
+	<class name="com.prt.models.UserRoleXref" table="user_role_xref">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="user_id" name="userId" type="java.lang.Integer"/>
 		<property column="role_id" name="roleId" type="java.lang.Integer"/>

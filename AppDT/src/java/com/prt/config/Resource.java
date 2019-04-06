@@ -35,13 +35,13 @@ public class Resource {
 		try {
 			Gson gson = new Gson();
 			String username = gson.fromJson(supplied, String.class);
-			String query = "SELECT * FROM USERS WHERE USERNAME = :username";
+			String query = "from User where username = :username";
 			Session session = HibernateInstances.getCurrent().getSession();
-			List<User> result = session.createQuery(query).setParameter("username", username).list();
+			List<User> result = (List<User>) session.createQuery(query).setParameter("username", username).list();
 			if (result.size() > 0) {
 				User user = result.get(0);
-				query = "SELECT * FROM PASSWORDS WHERE ID = :pid";
-				List<Password> passwords = session.createQuery(query).setParameter("pid", user.getPasswordId()).list();
+				query = "from Password where id = :pid";
+				List<Password> passwords = (List<Password>) session.createQuery(query).setParameter("pid", user.getPasswordId()).list();
 				Password password = passwords.get(0);
 				user.setPassword(password.getPassword());
 				user.setSalt(password.getSalt());
