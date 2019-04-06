@@ -9,7 +9,7 @@
 	<ui:define name="title">Login</ui:define>
 
 	<ui:define name="content">
-		<h:form id="loginform">
+		<h:form id="userForm">
 			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
 				<p:dataTable value="#{userController.users}" var="user" rows="12">
@@ -26,8 +26,8 @@
 						<p:outputLabel value="#{user.role}"/>
 					</p:column>
 					<p:column headerText="Actions">
-						<p:commandButton value="Edit"/>
-						<p:commandButton value="Delete"/>
+						<p:commandButton value="Edit" action="#{userController.prepareEditUser(user)}"/>
+						<p:commandButton value="Delete" actionListener="#{userController.deleteUser(user)}"/>
 					</p:column>
 				</p:dataTable>
 			</div>

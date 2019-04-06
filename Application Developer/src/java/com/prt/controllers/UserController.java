@@ -6,15 +6,19 @@
 package com.prt.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.prt.models.Globals;
 import com.prt.models.User;
 import com.prt.utils.RestUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -49,7 +53,7 @@ public class UserController implements Serializable {
 		try {
 			Gson gson = new Gson();
 			users = (List<User>) gson.fromJson(RestUtil.post(global.dturl + "repository/select/users", null), List.class);
-		} catch (Exception e) {
+		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
 	}
@@ -59,6 +63,23 @@ public class UserController implements Serializable {
 			global.userToEdit = user;
 			return "/app/admin/edituser.xhtml?faces-redirect=true";
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String deleteUser(User user) {
+		try {
+			Gson gson = new Gson();
+			String result = gson.fromJson(RestUtil.post(global.dturl + "repository/user/delete", gson.toJson(user)), String.class);
+			if (result != null && result.equalsIgnoreCase("true")) {
+				users.remove(user);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The user was successfully removed"));
+				PrimeFaces.current().ajax().update("userForm");
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem deleting the user you selected"));
+			}
+		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
 		return null;
