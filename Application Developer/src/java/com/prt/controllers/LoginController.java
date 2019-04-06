@@ -76,7 +76,7 @@ public class LoginController implements Serializable {
 	public String validate() {
 		try {
 			Gson gson = new Gson();
-			User user = gson.fromJson(RestUtil.post("http://localhost:8080/data/resources/repository/select/user", gson.toJson(username)), User.class);
+			User user = gson.fromJson(RestUtil.post(global.dturl + "repository/select/user", gson.toJson(username)), User.class);
 			if (user != null) {
 				//validate by hashing given password and match it with the password retrieved from the database
 				String compare = EncryptionHelper.encrypt(password, Base64.getDecoder().decode(user.getSalt()));

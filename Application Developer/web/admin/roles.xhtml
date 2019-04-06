@@ -13,7 +13,21 @@
 			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
 				<div class="card-body d-flex justify-content-center">
-
+					<p:dataTable value="#{roleController.roles}" var="role">
+						<p:column headerText="Role Name">
+							<p:outputLabel value="#{role.name}"/>
+						</p:column>
+						<p:column headerText="Role Description">
+							<p:outputLabel value="#{role.desc}"/>
+						</p:column>
+						<p:column headerText="Users">
+							<p:dataList value="#{roleController.users}"/>
+						</p:column>
+						<p:column headerText="Actions">
+							<p:commandButton value="Edit"/>
+							<p:commandButton value="Delete"/>
+						</p:column>
+					</p:dataTable>
 				</div>
 			</div>
 		</h:form>

@@ -1,0 +1,62 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Login</ui:define>
+
+	<ui:define name="content">
+		<h:form id="loginform">
+			<p:growl id="growl" showDetail="true"/>
+			<div class="card">
+				<h:panelGroup>
+					<div>
+						<p:outputLabel value="Username"/><br/>
+						<p:inputText value="#{global.userToEdit.username}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="First Name"/><br/>
+						<p:inputText value="#{global.userToEdit.firstName}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="Last Name"/><br/>
+						<p:inputText value="#{global.userToEdit.lastName}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="Email"/><br/>
+						<p:inputText value="#{global.userToEdit.email}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="Phone Number"/><br/>
+						<p:inputText value="#{global.userToEdit.phoneNumber}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="Role"/><br/>
+						<p:selectOneMenu value="#{global.userToEdit.roleId}">
+							<p:ajax/>
+							<f:selectItems value="#{editUserController.roles}" var="role" itemLabel="#{role.name}" itemValue="#{role.id}"/>
+						</p:selectOneMenu>
+					</div>
+					<div style="margin-top: 20px;">
+						<p:commandButton value="Save"/>
+						<p:button value="Cancel" outcome="/app/admin/users.xhtml"/>
+					</div>
+				</h:panelGroup>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

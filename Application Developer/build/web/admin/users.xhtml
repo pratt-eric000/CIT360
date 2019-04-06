@@ -12,9 +12,24 @@
 		<h:form id="loginform">
 			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
-				<div class="card-body d-flex justify-content-center">
-
-				</div>
+				<p:dataTable value="#{userController.users}" var="user" rows="12">
+					<p:column headerText="First Name" filterBy="#{user.firstName}" filterMatchMode="contains" sortBy="#{user.firstName}">
+						<p:outputLabel value="#{user.firstName}"/>
+					</p:column>
+					<p:column headerText="Last Name" filterBy="#{user.lastName}" filterMatchMode="contains" sortBy="#{user.lastName}">
+						<p:outputLabel value="#{user.lastName}"/>
+					</p:column>
+					<p:column headerText="Username" filterBy="#{user.username}" filterMatchMode="contains" sortBy="#{user.username}">
+						<p:outputLabel value="#{user.username}"/>
+					</p:column>
+					<p:column headerText="Role" filterBy="#{user.role}" filterMatchMode="contains" sortBy="#{user.role}">
+						<p:outputLabel value="#{user.role}"/>
+					</p:column>
+					<p:column headerText="Actions">
+						<p:commandButton value="Edit"/>
+						<p:commandButton value="Delete"/>
+					</p:column>
+				</p:dataTable>
 			</div>
 		</h:form>
 	</ui:define>
