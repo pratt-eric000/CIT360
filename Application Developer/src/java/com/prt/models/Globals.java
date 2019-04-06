@@ -23,6 +23,16 @@ public class Globals {
 	public int selectedScreen;
 	public User userToEdit;
 	public final String dturl = "http://localhost:8080/data/resources/";
+	public int selectedRole;
+	public Role roleToEdit;
+
+	public Role getRoleToEdit() {
+		return roleToEdit;
+	}
+
+	public void setRoleToEdit(Role roleToEdit) {
+		this.roleToEdit = roleToEdit;
+	}
 
 	public User getUserToEdit() {
 		return userToEdit;

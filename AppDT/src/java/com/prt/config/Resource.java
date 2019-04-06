@@ -146,4 +146,65 @@ public class Resource {
 		return gson.toJson("false");
 	}
 
+	@Path("role/add")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postAddRole(String supplied) {
+		Gson gson = new Gson();
+		try {
+			Role role = gson.fromJson(supplied, Role.class);
+			Session session = HibernateInstances.getCurrent().getSession();
+			session.beginTransaction();
+			session.save(role);
+			session.getTransaction().commit();
+			return gson.toJson("true");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson("false");
+	}
+
+	@Path("role/edit")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postUpdateRole(String supplied) {
+		Gson gson = new Gson();
+		try {
+			Role role = gson.fromJson(supplied, Role.class);
+			Session session = HibernateInstances.getCurrent().getSession();
+			session.beginTransaction();
+			session.createQuery("update Role set name = :name, desc = :desc where id = :id")
+					.setParameter("name", role.getName())
+					.setParameter("desc", role.getDesc())
+					.setParameter("id", role.getId())
+					.executeUpdate();
+			session.getTransaction().commit();
+			return gson.toJson("true");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson("false");
+	}
+
+	@Path("role/delete")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postDeleteRole(String supplied) {
+		Gson gson = new Gson();
+		try {
+			Role role = gson.fromJson(supplied, Role.class);
+			Session session = HibernateInstances.getCurrent().getSession();
+			session.beginTransaction();
+			session.delete(role);
+			session.getTransaction().commit();
+			return gson.toJson("true");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson("false");
+	}
+
 }

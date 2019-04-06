@@ -1,0 +1,35 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Roles</ui:define>
+
+	<ui:define name="content">
+		<h:form id="roleform">
+			<p:growl id="growl" showDetail="true"/>
+			<div class="card">
+				<div>
+					<p:outputLabel value="Role Name"/><br/>
+					<p:inputText value="#{global.roleToEdit.name}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div>
+					<p:outputLabel value="Role Description"/><br/>
+					<p:inputText value="#{global.roleToEdit.desc}">
+						<p:ajax/>
+					</p:inputText>
+				</div>
+				<div style="margin-top: 20px;">
+					<p:commandButton value="Save Role" action="#{editRoleController.saveEdit()}"/>
+					<p:button value="Cancel" outcome="/app/admin/roles.xhtml"/>
+				</div>
+			</div>
+		</h:form>
+
+
+</ui:composition>

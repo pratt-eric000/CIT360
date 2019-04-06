@@ -42,7 +42,7 @@ Contributor(s):
 <hibernate-mapping>
 	<class name="com.prt.models.ActionLink" table="action_links">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="field_action_id" name="fieldActionId" type="java.lang.Integer"/>
 		<property column="href" name="href" type="string"/>
@@ -51,14 +51,14 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.Action" table="actions">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.Column" table="columns">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
@@ -66,21 +66,21 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.ComponentFieldXref" table="component_field_xref">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="field_id" name="fieldId" type="java.lang.Integer"/>
 		<property column="component_id" name="componentId" type="java.lang.Integer"/>
 	</class>
 	<class name="com.prt.models.Component" table="components">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.FieldAction" table="field_actions">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="field_id" name="fieldId" type="java.lang.Integer"/>
 		<property column="action_id" name="actionId" type="java.lang.Integer"/>
@@ -88,14 +88,14 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.FieldType" table="field_types">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.Field" table="fields">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
@@ -103,14 +103,14 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.Location" table="locations">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.Record" table="records">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="column_id" name="columnId" type="java.lang.Integer"/>
 		<property column="value" name="value" type="string"/>
@@ -120,7 +120,7 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.ScreenComponentXref" table="screen_component_xref">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="screen_id" name="screenId" type="java.lang.Integer"/>
 		<property column="component_id" name="componentId" type="java.lang.Integer"/>
@@ -129,14 +129,14 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.ScreenLayout" table="screen_layouts">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.Screen" table="screens">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
@@ -146,14 +146,14 @@ Contributor(s):
 	</class>
 	<class name="com.prt.models.Table" table="tables">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
 	<class name="com.prt.models.RoleScreenXref" table="role_screen_xref">
 		<id column="id" name="id" type="java.lang.Integer">
-			<generator class="identity"/>
+			<generator class="increment"/>
 		</id>
 		<property column="role_id" name="roleId" type="java.lang.Integer"/>
 		<property column="screen_id" name="screenId" type="java.lang.Integer"/>

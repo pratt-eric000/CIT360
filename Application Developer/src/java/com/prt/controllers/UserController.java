@@ -59,13 +59,8 @@ public class UserController implements Serializable {
 	}
 
 	public String prepareEditUser(User user) {
-		try {
-			global.userToEdit = user;
-			return "/app/admin/edituser.xhtml?faces-redirect=true";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		global.userToEdit = user;
+		return "/app/admin/edituser.xhtml?faces-redirect=true";
 	}
 
 	public String deleteUser(User user) {

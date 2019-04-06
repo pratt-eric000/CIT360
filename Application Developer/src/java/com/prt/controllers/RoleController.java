@@ -14,9 +14,12 @@ import com.prt.utils.RestUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -30,6 +33,24 @@ public class RoleController implements Serializable {
 	private Globals global;
 	private List<Role> roles;
 	private List<User> users;
+	private String roleName;
+	private String roleDesc;
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
+	}
 
 	public List<User> getUsers() {
 		return users;
@@ -61,6 +82,48 @@ public class RoleController implements Serializable {
 			Gson gson = new Gson();
 			roles = (List<Role>) gson.fromJson(RestUtil.post(global.dturl + "repository/select/roles", null), List.class);
 		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addNewRole() {
+		try {
+			Role role = new Role();
+			role.setName(roleName);
+			role.setDesc(roleDesc);
+			Gson gson = new Gson();
+			String result = gson.fromJson(RestUtil.post(global.dturl + "repository/role/add", gson.toJson(role)), String.class);
+			if (result != null && result.equalsIgnoreCase("true")) {
+				roleName = "";
+				roleDesc = "";
+				init();
+				PrimeFaces.current().ajax().update("roleform");
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The new role has been successfully added"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem saving the new role"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String editRole(Role role) {
+		global.roleToEdit = role;
+		return "/app/admin/editrole.xhtml?faces-redirect=true";
+	}
+
+	public void deleteRole(Role role) {
+		try {
+			Gson gson = new Gson();
+			String result = gson.fromJson(RestUtil.post(global.dturl + "repository/role/delete", gson.toJson(role)), String.class);
+			if (result != null && result.equalsIgnoreCase("true")) {
+				roles.remove(role);
+				PrimeFaces.current().ajax().update("roleform");
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The new role has been successfully deleted"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem deleting the selected role"));
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
