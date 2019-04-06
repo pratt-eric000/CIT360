@@ -17,6 +17,15 @@ public class UserRoleXref implements Serializable {
 	private int userId;
 	private int roleId;
 
+	public UserRoleXref() {
+
+	}
+
+	public UserRoleXref(int userId, int roleId) {
+		this.userId = userId;
+		this.roleId = roleId;
+	}
+
 	public int getId() {
 		return id;
 	}

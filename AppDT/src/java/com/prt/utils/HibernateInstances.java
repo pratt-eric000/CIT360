@@ -8,6 +8,7 @@ package com.prt.utils;
 import com.prt.hibernate.HibernateUtil;
 import com.prt.models.Password;
 import com.prt.models.User;
+import com.prt.models.UserRoleXref;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.List;
@@ -48,6 +49,8 @@ public class HibernateInstances {
 
 	public void checkForDefaultUser(Session session) {
 		List<User> users = session.createCriteria(User.class).list();
+		//if no users exist, create the default admin user to start.
+		//The default admin user can be deleted later on for security reasons
 		if (users == null || users.isEmpty()) {
 			try {
 				//create user since it doesn't exist
@@ -61,8 +64,9 @@ public class HibernateInstances {
 				session.save(password);
 				User user = new User("admin", "", "", "", "admin", 1, "", "");
 				session.save(user);
+				UserRoleXref urx = new UserRoleXref(1, 1);
+				session.save(urx);
 				session.getTransaction().commit();
-
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}

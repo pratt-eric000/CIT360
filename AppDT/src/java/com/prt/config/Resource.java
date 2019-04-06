@@ -7,7 +7,9 @@ package com.prt.config;
 
 import com.google.gson.Gson;
 import com.prt.models.Password;
+import com.prt.models.Role;
 import com.prt.models.User;
+import com.prt.models.UserRoleXref;
 import com.prt.utils.HibernateInstances;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -45,6 +47,9 @@ public class Resource {
 				Password password = passwords.get(0);
 				user.setPassword(password.getPassword());
 				user.setSalt(password.getSalt());
+				UserRoleXref urx = ((List<UserRoleXref>) session.createQuery("from UserRoleXref where userId = :uid").setParameter("uid", user.getId()).list()).get(0);
+				Role role = ((List<Role>) session.createQuery("from Role where id = :id").setParameter("id", urx.getRoleId()).list()).get(0);
+				user.setRole(role.getName());
 				return gson.toJson(user);
 			}
 		} catch (Exception e) {
