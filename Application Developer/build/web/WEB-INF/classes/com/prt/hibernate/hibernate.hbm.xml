@@ -40,115 +40,115 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-mapping>
-  <class name="com.prt.models.ActionLink" table="action_links">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="field_action_id" name="fieldActionId" type="java.lang.Integer"/>
-    <property column="href" name="href" type="String"/>
-    <property column="field_id" name="fieldId" type="java.lang.Integer"/>
-    <property column="column_id" name="columnId" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.Action" table="actions">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
-  <class name="com.prt.models.Column" table="columns">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-    <property column="table_id" name="tableId" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.ComponentFieldXref" table="component_field_xref">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="field_id" name="fieldId" type="java.lang.Integer"/>
-    <property column="component_id" name="componentId" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.Component" table="components">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
-  <class name="com.prt.models.FieldAction" table="field_actions">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="field_id" name="fieldId" type="java.lang.Integer"/>
-    <property column="action_id" name="actionId" type="java.lang.Integer"/>
-    <property column="action_link_id" name="actionLinkId" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.FieldType" table="field_types">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
-  <class name="com.prt.models.Field" table="fields">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-    <property column="type_id" name="typeId" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.Location" table="locations">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
-  <class name="com.prt.models.Record" table="records">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="column_id" name="columnId" type="java.lang.Integer"/>
-    <property column="value" name="value" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-    <property column="created_date" name="createdDate" type="java.util.Date"/>
-    <property column="modified_date" name="modifiedDate" type="java.util.Date"/>
-  </class>
-  <class name="com.prt.models.ScreenComponentXref" table="screen_component_xref">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="screen_id" name="screenId" type="java.lang.Integer"/>
-    <property column="component_id" name="componentId" type="java.lang.Integer"/>
-    <property column="location_id" name="locationId" type="java.lang.Integer"/>
-    <property column="grid_coordinates" name="gridCoordinates" type="String"/>
-  </class>
-  <class name="com.prt.models.ScreenLayout" table="screen_layouts">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
-  <class name="com.prt.models.Screen" table="screens">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-    <property column="screen_layout_id" name="screenLayoutId" type="java.lang.Integer"/>
-    <property column="grid_x" name="gridX" type="java.lang.Integer"/>
-    <property column="grid_y" name="gridY" type="java.lang.Integer"/>
-  </class>
-  <class name="com.prt.models.Table" table="tables">
-    <id column="id" name="id" type="java.lang.Integer">
-      <generator class="identity"/>
-    </id>
-    <property column="name" name="name" type="String"/>
-    <property column="desc" name="desc" type="String"/>
-  </class>
+	<class name="com.prt.models.ActionLink" table="action_links">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="field_action_id" name="fieldActionId" type="java.lang.Integer"/>
+		<property column="href" name="href" type="string"/>
+		<property column="field_id" name="fieldId" type="java.lang.Integer"/>
+		<property column="column_id" name="columnId" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.Action" table="actions">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
+	<class name="com.prt.models.Column" table="columns">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+		<property column="table_id" name="tableId" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.ComponentFieldXref" table="component_field_xref">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="field_id" name="fieldId" type="java.lang.Integer"/>
+		<property column="component_id" name="componentId" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.Component" table="components">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
+	<class name="com.prt.models.FieldAction" table="field_actions">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="field_id" name="fieldId" type="java.lang.Integer"/>
+		<property column="action_id" name="actionId" type="java.lang.Integer"/>
+		<property column="action_link_id" name="actionLinkId" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.FieldType" table="field_types">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
+	<class name="com.prt.models.Field" table="fields">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+		<property column="type_id" name="typeId" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.Location" table="locations">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
+	<class name="com.prt.models.Record" table="records">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="column_id" name="columnId" type="java.lang.Integer"/>
+		<property column="value" name="value" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+		<property column="created_date" name="createdDate" type="java.util.Date"/>
+		<property column="modified_date" name="modifiedDate" type="java.util.Date"/>
+	</class>
+	<class name="com.prt.models.ScreenComponentXref" table="screen_component_xref">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="screen_id" name="screenId" type="java.lang.Integer"/>
+		<property column="component_id" name="componentId" type="java.lang.Integer"/>
+		<property column="location_id" name="locationId" type="java.lang.Integer"/>
+		<property column="grid_coordinates" name="gridCoordinates" type="string"/>
+	</class>
+	<class name="com.prt.models.ScreenLayout" table="screen_layouts">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
+	<class name="com.prt.models.Screen" table="screens">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+		<property column="screen_layout_id" name="screenLayoutId" type="java.lang.Integer"/>
+		<property column="grid_x" name="gridX" type="java.lang.Integer"/>
+		<property column="grid_y" name="gridY" type="java.lang.Integer"/>
+	</class>
+	<class name="com.prt.models.Table" table="tables">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="string"/>
+		<property column="desc" name="desc" type="string"/>
+	</class>
 </hibernate-mapping>
