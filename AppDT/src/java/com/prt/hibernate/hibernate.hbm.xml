@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright (c) 2008, 2016 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+
+Contributor(s):
+-->
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="erc.prt.models.User" table="users">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="first_name" name="firstName" type="String"/>
+		<property column="last_name" name="lastName" type="String"/>
+		<property column="email" name="email" type="String"/>
+		<property column="phone_number" name="phoneNumber" type="String"/>
+		<property column="username" name="username" type="String"/>
+		<property column="password_id" name="passwordId" type="java.lang.Integer"/>
+	</class>
+
+	<class name="erc.prt.models.Password" table="passwords">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="password" name="password" type="String"/>
+		<property column="salt" name="salt" type="String"/>
+	</class>
+
+	<class name="erc.prt.models.Role" table="roles">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="name" name="name" type="String"/>
+		<property column="desc" name="desc" type="String"/>
+	</class>
+
+	<class name="erc.prt.models.UserRoleXref" table="user_role_xref">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="user_id" name="userId" type="java.lang.Integer"/>
+		<property column="role_id" name="roleId" type="java.lang.Integer"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.prt.models;
+
+import java.io.Serializable;
+
+/**
+ *
+ * @author P-ratt
+ */
+public class ComponentFieldXref implements Serializable {
+
+	private int id;
+	private int fieldId;
+	private int comopnentId;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getFieldId() {
+		return fieldId;
+	}
+
+	public void setFieldId(int fieldId) {
+		this.fieldId = fieldId;
+	}
+
+	public int getComopnentId() {
+		return comopnentId;
+	}
+
+	public void setComopnentId(int comopnentId) {
+		this.comopnentId = comopnentId;
+	}
+}
