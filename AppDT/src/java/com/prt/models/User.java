@@ -23,6 +23,24 @@ public class User implements Serializable {
 	private String password;
 	private String salt;
 	private String role;
+	private int roleId;
+	private String defaultScreen;
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getDefaultScreen() {
+		return defaultScreen;
+	}
+
+	public void setDefaultScreen(String defaultScreen) {
+		this.defaultScreen = defaultScreen;
+	}
 
 	public User() {
 

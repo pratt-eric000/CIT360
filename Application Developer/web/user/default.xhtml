@@ -17,21 +17,7 @@
 						<div style="width: 80%; text-align: center;">
 							<h:panelGroup>
 								<div style="text-align: left;">
-									<p:outputLabel value="Username:" for="uname" escape="false"/>
-									<br/>
-									<p:inputText value="#{loginController.username}" id="uname">
-										<p:ajax/>
-									</p:inputText>
-								</div>
-								<div style="text-align: left;">
-									<p:outputLabel value="Password:" for="pword" escape="false"/>
-									<br/>
-									<p:password value="#{loginController.password}" id="pword">
-										<p:ajax/>
-									</p:password>
-								</div>
-								<div style="margin-top: 20px;">
-									<p:commandButton value="Submit" action="#{loginController.validate}" style="margin-right: 10px;" class="btn btn-dark" update="loginform"/>
+									<p:outputLabel value="No programs have been set up for your role yet"/>
 								</div>
 							</h:panelGroup>
 						</div>

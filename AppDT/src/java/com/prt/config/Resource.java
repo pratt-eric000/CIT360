@@ -50,6 +50,7 @@ public class Resource {
 				UserRoleXref urx = ((List<UserRoleXref>) session.createQuery("from UserRoleXref where userId = :uid").setParameter("uid", user.getId()).list()).get(0);
 				Role role = ((List<Role>) session.createQuery("from Role where id = :id").setParameter("id", urx.getRoleId()).list()).get(0);
 				user.setRole(role.getName());
+				user.setRoleId(role.getId());
 				return gson.toJson(user);
 			}
 		} catch (Exception e) {

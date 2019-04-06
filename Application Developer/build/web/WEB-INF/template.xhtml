@@ -19,7 +19,7 @@
 					<div style="width: 100%; height: 100%;">
 						Header
 						<h:form>
-							<p:commandButton value="Log Out" style="float: right;" action="#{templateController.logout}" rendered="false"/>
+							<p:commandButton value="Log Out" style="float: right;" action="#{templateController.logout}" rendered="#{global.loggedIn}"/>
 						</h:form>
 					</div>
                 </p:layoutUnit>
@@ -28,13 +28,12 @@
                     Footer
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="230" header="Left" collapsible="true" rendered="false">
+                <p:layoutUnit position="west" size="230" header="Left" collapsible="true" rendered="#{global.loggedIn}">
                     <p:menu>
 						<p:submenu label="Options">
-							<p:menuitem value="Users" outcome="/user/users.xhtml"/>
-							<p:menuitem value="Database" outcome="/user/database.xhtml"/>
-							<p:menuitem value="Application Controller" outcome="/user/applicationcontrollerex.xhtml"/>
-							<p:menuitem value="Collections" outcome="/user/collectionsexample.xhtml"/>
+							<p:menuitem value="Users" outcome="/main/users.xhtml"/>
+							<p:menuitem value="Database" outcome="/main/database.xhtml"/>
+							<p:menuitem value="Screens" outcome="/main/screens.xhtml"/>
                         </p:submenu>
                     </p:menu>
                 </p:layoutUnit>

@@ -151,4 +151,12 @@ Contributor(s):
 		<property column="name" name="name" type="string"/>
 		<property column="desc" name="desc" type="string"/>
 	</class>
+	<class name="com.prt.models.RoleScreenXref" table="role_screen_xref">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity"/>
+		</id>
+		<property column="role_id" name="roleId" type="java.lang.Integer"/>
+		<property column="screen_id" name="screenId" type="java.lang.Integer"/>
+		<property column="default" name="defaultScreen" type="java.lang.Integer"/>
+	</class>
 </hibernate-mapping>
