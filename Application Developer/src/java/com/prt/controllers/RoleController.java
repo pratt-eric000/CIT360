@@ -119,6 +119,7 @@ public class RoleController implements Serializable {
 			if (result != null && result.equalsIgnoreCase("true")) {
 				roles.remove(role);
 				PrimeFaces.current().ajax().update("roleform");
+				PrimeFaces.current().executeScript("PF('addroledlg').hide()");
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The new role has been successfully deleted"));
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem deleting the selected role"));

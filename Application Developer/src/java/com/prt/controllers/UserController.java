@@ -115,6 +115,7 @@ public class UserController implements Serializable {
 			if (result != null && result.equalsIgnoreCase("true")) {
 				init();
 				PrimeFaces.current().ajax().update("userForm");
+				PrimeFaces.current().executeScript("PF('adduserdlg').hide()");
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The user was successfully added"));
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem adding the new user"));
