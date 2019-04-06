@@ -97,8 +97,8 @@ public class Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String postEditUser(String supplied) {
+		Gson gson = new Gson();
 		try {
-			Gson gson = new Gson();
 			User user = gson.fromJson(supplied, User.class);
 			Session session = HibernateInstances.getCurrent().getSession();
 			session.beginTransaction();
@@ -124,7 +124,26 @@ public class Resource {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "false";
+		return gson.toJson("false");
+	}
+
+	@Path("user/delete")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postDeleteUser(String supplied) {
+		Gson gson = new Gson();
+		try {
+			User user = gson.fromJson(supplied, User.class);
+			Session session = HibernateInstances.getCurrent().getSession();
+			session.beginTransaction();
+			session.delete(user);
+			session.getTransaction().commit();
+			return gson.toJson("true");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson("false");
 	}
 
 }
