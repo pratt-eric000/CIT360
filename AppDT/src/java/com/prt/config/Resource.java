@@ -11,6 +11,7 @@ import com.prt.models.Role;
 import com.prt.models.User;
 import com.prt.models.UserRoleXref;
 import com.prt.utils.HibernateInstances;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -158,6 +159,11 @@ public class Resource {
 			session.beginTransaction();
 			session.save(user);
 			session.getTransaction().commit();
+			session = HibernateInstances.getCurrent().getSession();
+			Long lastId = ((BigInteger) session.createQuery("SELECT LAST_INSERT_ID()").uniqueResult()).longValue();
+
+			session.beginTransaction();
+			session.save(new UserRoleXref(lastId.intValue(), user.getRoleId()));
 			return gson.toJson("true");
 		} catch (Exception e) {
 			e.printStackTrace();

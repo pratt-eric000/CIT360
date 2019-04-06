@@ -8,6 +8,7 @@ package com.prt.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.prt.models.Globals;
+import com.prt.models.Role;
 import com.prt.models.User;
 import com.prt.utils.RestUtil;
 import java.io.Serializable;
@@ -32,6 +33,15 @@ public class UserController implements Serializable {
 	private Globals global;
 	private List<User> users;
 	private User newUser;
+	private List<Role> roles;
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
 	public User getNewUser() {
 		return newUser;
@@ -68,6 +78,12 @@ public class UserController implements Serializable {
 	}
 
 	public void startAddNewUser() {
+		try {
+			Gson gson = new Gson();
+			roles = (List<Role>) gson.fromJson(RestUtil.post(global.dturl + "repository/select/roles", null), List.class);
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		}
 		newUser = new User();
 	}
 
@@ -103,7 +119,7 @@ public class UserController implements Serializable {
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem adding the new user"));
 			}
-		} catch (Exception e) {
+		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
 	}
