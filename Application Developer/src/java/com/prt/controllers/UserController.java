@@ -31,6 +31,15 @@ public class UserController implements Serializable {
 	@ManagedProperty("#{global}")
 	private Globals global;
 	private List<User> users;
+	private User newUser;
+
+	public User getNewUser() {
+		return newUser;
+	}
+
+	public void setNewUser(User newUser) {
+		this.newUser = newUser;
+	}
 
 	public List<User> getUsers() {
 		return users;
@@ -58,12 +67,16 @@ public class UserController implements Serializable {
 		}
 	}
 
+	public void startAddNewUser() {
+		newUser = new User();
+	}
+
 	public String prepareEditUser(User user) {
 		global.userToEdit = user;
 		return "/app/admin/edituser.xhtml?faces-redirect=true";
 	}
 
-	public String deleteUser(User user) {
+	public void deleteUser(User user) {
 		try {
 			Gson gson = new Gson();
 			String result = gson.fromJson(RestUtil.post(global.dturl + "repository/user/delete", gson.toJson(user)), String.class);
@@ -77,6 +90,21 @@ public class UserController implements Serializable {
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		}
-		return null;
+	}
+
+	public void addNewUser() {
+		try {
+			Gson gson = new Gson();
+			String result = gson.fromJson(RestUtil.post(global.dturl + "repository/user/add", gson.toJson(newUser)), String.class);
+			if (result != null && result.equalsIgnoreCase("true")) {
+				init();
+				PrimeFaces.current().ajax().update("userForm");
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "The user was successfully added"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "There was a problem adding the new user"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -146,6 +146,25 @@ public class Resource {
 		return gson.toJson("false");
 	}
 
+	@Path("user/add")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postAddUser(String supplied) {
+		Gson gson = new Gson();
+		try {
+			User user = gson.fromJson(supplied, User.class);
+			Session session = HibernateInstances.getCurrent().getSession();
+			session.beginTransaction();
+			session.save(user);
+			session.getTransaction().commit();
+			return gson.toJson("true");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson("false");
+	}
+
 	@Path("role/add")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

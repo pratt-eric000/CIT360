@@ -12,26 +12,52 @@
 		<h:form id="userForm">
 			<p:growl id="growl" showDetail="true"/>
 			<div class="card">
-				<p:dataTable value="#{userController.users}" var="user" rows="12">
-					<p:column headerText="First Name" filterBy="#{user.firstName}" filterMatchMode="contains" sortBy="#{user.firstName}">
-						<p:outputLabel value="#{user.firstName}"/>
-					</p:column>
-					<p:column headerText="Last Name" filterBy="#{user.lastName}" filterMatchMode="contains" sortBy="#{user.lastName}">
-						<p:outputLabel value="#{user.lastName}"/>
-					</p:column>
-					<p:column headerText="Username" filterBy="#{user.username}" filterMatchMode="contains" sortBy="#{user.username}">
-						<p:outputLabel value="#{user.username}"/>
-					</p:column>
-					<p:column headerText="Role" filterBy="#{user.role}" filterMatchMode="contains" sortBy="#{user.role}">
-						<p:outputLabel value="#{user.role}"/>
-					</p:column>
-					<p:column headerText="Actions">
-						<p:commandButton value="Edit" action="#{userController.prepareEditUser(user)}"/>
-						<p:commandButton value="Delete" actionListener="#{userController.deleteUser(user)}"/>
-					</p:column>
-				</p:dataTable>
+				<div class="card-body d-flex justify-content-center">
+					<p:commandButton value="Add Role" actionListener="#{userController.startAddNewUser}" oncomplete="PF('adduserdlg').show()" style="float: right;"/>
+					<p:dataTable value="#{userController.users}" var="user" rows="12">
+						<p:column headerText="First Name" filterBy="#{user.firstName}" filterMatchMode="contains" sortBy="#{user.firstName}">
+							<p:outputLabel value="#{user.firstName}"/>
+						</p:column>
+						<p:column headerText="Last Name" filterBy="#{user.lastName}" filterMatchMode="contains" sortBy="#{user.lastName}">
+							<p:outputLabel value="#{user.lastName}"/>
+						</p:column>
+						<p:column headerText="Username" filterBy="#{user.username}" filterMatchMode="contains" sortBy="#{user.username}">
+							<p:outputLabel value="#{user.username}"/>
+						</p:column>
+						<p:column headerText="Role" filterBy="#{user.role}" filterMatchMode="contains" sortBy="#{user.role}">
+							<p:outputLabel value="#{user.role}"/>
+						</p:column>
+						<p:column headerText="Actions">
+							<p:commandButton value="Edit" action="#{userController.prepareEditUser(user)}"/>
+							<p:commandButton value="Delete" actionListener="#{userController.deleteUser(user)}"/>
+						</p:column>
+					</p:dataTable>
+				</div>
 			</div>
 		</h:form>
+
+		<p:dialog modal="true" widgetVar="adduserdlg">
+			<h:form id="adduserform">
+				<h:panelGroup>
+					<div>
+						<p:outputLabel value="First Name"/><br/>
+						<p:inputText value="#{roleController.roleName}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div>
+						<p:outputLabel value="Last Name"/><br/>
+						<p:inputText value="#{roleController.roleDesc}">
+							<p:ajax/>
+						</p:inputText>
+					</div>
+					<div style="margin-top: 20px;">
+						<p:commandButton value="Create User" actionListener="#{userController.addNewUser()}"/>
+						<p:commandButton value="Cancel" oncomplete="PF('addroledlg').hide()"/>
+					</div>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>
